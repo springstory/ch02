@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- 4가지 생성자중에서 아래와 같이 bean 설정했을 경우  출력 : Phone [name=S5, color=null] -->
+	<!-- <bean id="phone" class="di.Phone">
+		<constructor-arg value="S5" />
+	</bean> -->
+	
+	<!-- 4가지 생성자중에서 아래와 같이 bean 설정했을 경우  출력 : Phone [name=S5, color=white] -->
+	<!-- <bean id="phone" class="di.Phone">
+		<constructor-arg value="S5" />
+		<constructor-arg value="white" />
+	</bean> -->
+	
+	<!-- 4가지 생성자중에서 아래와 같이 bean 설정했을 경우  출력 : Phone [name=null, color=null] -->
+	<!-- <bean id="phone" class="di.Phone" /> -->
+	
+	<bean id="phone" class="di.Phone" >
+		<constructor-arg ref="agency" />
+	</bean>
+	
+	<bean id="agency" class="di.MobileAgency" >
+		<property name="name"  value="SKT"/>
+	</bean>
+
+</beans>
