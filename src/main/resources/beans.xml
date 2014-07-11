@@ -3,26 +3,97 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<!-- 4가지 생성자중에서 아래와 같이 bean 설정했을 경우  출력 : Phone [name=S5, color=null] -->
-	<!-- <bean id="phone" class="di.Phone">
-		<constructor-arg value="S5" />
-	</bean> -->
-	
-	<!-- 4가지 생성자중에서 아래와 같이 bean 설정했을 경우  출력 : Phone [name=S5, color=white] -->
-	<!-- <bean id="phone" class="di.Phone">
-		<constructor-arg value="S5" />
-		<constructor-arg value="white" />
-	</bean> -->
-	
-	<!-- 4가지 생성자중에서 아래와 같이 bean 설정했을 경우  출력 : Phone [name=null, color=null] -->
+	<!-- 4가지 생성자중에서 아래와 같이 bean 설정했을 경우 출력 : Phone [name=S5, color=null, agency=null] -->
+	<!-- <bean id="phone" class="di.Phone"> <constructor-arg value="S5" /> </bean> -->
+
+	<!-- 4가지 생성자중에서 아래와 같이 bean 설정했을 경우 출력 : Phone [name=S5, color=white, agency=null] -->
+	<!-- <bean id="phone" class="di.Phone"> <constructor-arg value="S5" /> <constructor-arg 
+		value="white" /> </bean> -->
+
+	<!-- 4가지 생성자중에서 아래와 같이 bean 설정했을 경우 출력 : Phone [name=null, color=null, agency=null] -->
 	<!-- <bean id="phone" class="di.Phone" /> -->
-	
-	<bean id="phone" class="di.Phone" >
-		<constructor-arg ref="agency" />
-	</bean>
-	
-	<bean id="agency" class="di.MobileAgency" >
-		<property name="name"  value="SKT"/>
+
+	<!-- 4가지 생성자중에서 아래와 같이 bean 설정했을 경우 출력 : Phone [name=null, color=null, agency=MobileAgency 
+		[name=SKT]] -->
+	<!-- <bean id="phone" class="di.Phone" > <constructor-arg ref="agency" /> 
+		</bean> -->
+
+	<bean id="agency" class="di.MobileAgency">
+		<property name="name" value="SKT" />
 	</bean>
 
+	<!-- <property> 태그를 이용하여 setter 메소드를 통한 주입 -->
+	<!-- <bean id="phone" class="di.Phone" > <property name="agency" ref="agency" 
+		/> </bean> -->
+
+	<!-- 생성자를 통한 주입후 setter 를 통한 주입까지 , 출력 : Phone [name=S5, color=white, agency=MobileAgency 
+		[name=SKT]] -->
+	<!-- <bean id="phone" class="di.Phone"> <constructor-arg value="S5" /> <constructor-arg 
+		value="white" /> <property name="agency" ref="agency" /> </bean> -->
+
+	<!--CollectionBean [userList=[김영지, 장덕희], userSet=null, userMap=null, userProp=null] -->
+	<bean id="listTest" class="collection.CollectionBean">
+		<property name="userList">
+			<list>
+				<value>김영지</value>
+				<value>장덕희</value>
+			</list>
+		</property>
+	</bean>
+
+	<!-- CollectionBean [userList=null, userSet=[김영지, 장덕희], userMap=null, userProp=null] -->
+	<bean id="setTest" class="collection.CollectionBean">
+		<property name="userSet">
+			<set value-type="java.lang.String">
+				<value>김영지</value>
+				<value>김영지</value>
+				<value>김영지</value>
+				<value>장덕희</value>
+			</set>
+		</property>
+	</bean>
+
+	<!-- CollectionBean [userList=null, userSet=null, userMap={member1=User [name=김영지], member2=User [name=장덕희]}, userProp=null] -->
+	<bean id="mapTest" class="collection.CollectionBean">
+		<property name="userMap">
+			<map>
+				<entry>
+					<key>
+						<value>member1</value>
+					</key>
+					<ref bean="user1" />
+				</entry>
+				<entry>
+					<key>
+						<value>member2</value>
+					</key>
+					<ref bean="user2" />
+				</entry>
+			</map>
+		</property>
+	</bean>
+
+	<bean id="user1" class="collection.User">
+		<constructor-arg>
+			<value>김영지</value>
+		</constructor-arg>
+	</bean>
+
+	<bean id="user2" class="collection.User">
+		<constructor-arg>
+			<value>장덕희</value>
+		</constructor-arg>
+	</bean>
+	
+	<!-- CollectionBean [userList=null, userSet=null, userMap=null, userProp={member2=user2, member1=user1}] -->
+	<bean id="propTest" class="collection.CollectionBean">
+		<property name="userProp">
+			<props>
+				<prop key="member1">user1</prop>
+				<prop key="member2">user2</prop>
+			</props>
+		</property>
+	</bean>
+	
+	
 </beans>
