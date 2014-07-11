@@ -6,9 +6,9 @@
 	http://www.springframework.org/schema/context
 		http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 		
-	<!-- <context:annotation-config /> -->
+	<context:annotation-config />
 	<!-- 아래와 같이 선언하면 해당 패키지 내에 있는 클래스들을 스캔하여 
 	Annotation 이 정의된 클래스들을 Bean 으로 인식하고 자동으로 등록해 준다. -->
-	<context:component-scan base-package="com.annotation.test" />
+	<context:component-scan base-package="annotation.service" />
 
 </beans>
